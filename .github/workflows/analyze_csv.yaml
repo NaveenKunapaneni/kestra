@@ -1,0 +1,30 @@
+name: Analyze csv with python
+
+on: 
+  workflow_dispatch:
+  schedule:
+    - cron: '0 10 * * *'
+
+jobs:
+  analyze_csv:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+        
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Python script to analyze CSV
+        run: |
+          python process_data.py
+          cat analysis_result.txt
+
+
+        
